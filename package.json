@@ -1,0 +1,25 @@
+{
+  "name": "pantilt-cam",
+  "version": "0.0.0",
+  "description": "Pan Tilt camera controller",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goliatone/pantilt-cam"
+  },
+  "keywords": [
+    "rpi",
+    "raspberry-pi",
+    "camera",
+    "pan-tilt"
+  ],
+  "author": "goliatone",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goliatone/pantilt-cam/issues"
+  },
+  "homepage": "https://github.com/goliatone/pantilt-cam"
+}
