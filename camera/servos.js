@@ -9,7 +9,7 @@ module.exports.init = function(){
     }, 500);
 };
 
-modue.exports.tilt = function(value){
+module.exports.tilt = function(value){
     stream.write({pin:1, value: value});
 };
 
