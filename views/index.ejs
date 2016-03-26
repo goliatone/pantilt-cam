@@ -7,7 +7,15 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <div id="controller">
+        <button id="pan-left">Left</button>
+        <button id="pan-right">Right</button>
+        <button id="tilt-up">Up</button>
+        <button id="tilt-down">Down</button>
+        <input id="step" value="10"/>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         var socket = io();
         socket.on('connect', function(){
@@ -16,6 +24,56 @@
         socket.on('error', function(e){
             conosle.error('socket.error', e);
         });
+
+        $('#pan-left').on('click', function(){
+            var value = $('#step').val();
+            left(value);
+        });
+        $('#pan-right').on('click', function(){
+            var value = $('#step').val();
+            right(value);
+        });
+        $('#tilt-up').on('click', function(){
+            var value = $('#step').val();
+            up(value);
+        });
+        $('#tilt-down').on('click', function(){
+            var value = $('#step').val();
+            down(value);
+        });
+
+        function left(value){
+            value = '+' + value;
+            socket.emit('cam.pan', {value: value});
+        }
+
+        function right(value){
+            value = '-' + value;
+            socket.emit('cam.pan', {value: value});
+        }
+
+        function down(value){
+            value = '+' + value;
+            socket.emit('cam.tilt', {value: value});
+        }
+        function up(value){
+            value = '-' + value;
+            socket.emit('cam.tilt', {value: value});
+        }
+
+        $('html').keydown(function(e){
+            var keys = {
+                37: 'left',
+                38: 'up',
+                39: 'right',
+                40: 'down'
+            };
+            var direction = keys[e.which];
+            if(!direction) return;
+            window[direction](10);
+            console.log(e.which);
+        });
+        
         window.socket = socket;
     </script>
     <img src="http://picam3.local:9090/stream/video.mjpeg" alt="image"  >
