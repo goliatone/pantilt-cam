@@ -10,10 +10,12 @@ module.exports.init = function(){
 };
 
 module.exports.tilt = function(value){
+    console.log('tilt', value);
     stream.write({pin:1, value: value});
 };
 
 module.exports.pan = function(value){
+    console.log('pan', value);
     stream.write({pin:0, value: value});
 };
 
