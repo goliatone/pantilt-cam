@@ -7,5 +7,5 @@ router.get('/', function(req, res) {
 });
 
 module.exports = function(app, config){
-    app.use('/', routes);
+    app.use('/', router);
 };
