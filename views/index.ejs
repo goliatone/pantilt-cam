@@ -6,9 +6,8 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
     <div id="video-feed">
-        <img src="http://picam3.local:9090/stream/video.mjpeg" alt="image"  >
+        <img id="video" src="http://picam3.local:9090/stream/video.mjpeg" alt="image"  >
     </div>
     <br/>
     <div id="controller">
@@ -18,6 +17,8 @@
         <button id="tilt-down">Down</button>
 
         <input id="step" value="10"/>
+
+        <button id="refresh">Refresh</button>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -49,6 +50,10 @@
             down(value);
         });
 
+        $('#refresh').on('click', function(){
+            refresh();
+        });
+
         function left(value){
             value = '+' + value;
             socket.emit('cam.pan', {value: value});
@@ -66,6 +71,11 @@
         function up(value){
             value = '-' + value;
             socket.emit('cam.tilt', {value: value});
+        }
+
+        function refresh(){
+            var $img = $("#video-feed img");
+            $img.attr('src', $img.attr('src'));
         }
 
         $('html').keydown(function(e){
