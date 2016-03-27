@@ -1,7 +1,7 @@
 'use strict';
 var io;
 var servos = require('./camera/servos');
-
+var camera = require('./camera');
 servos.init();
 
 module.exports = function(app, config){
@@ -21,6 +21,24 @@ module.exports = function(app, config){
         socket.on('cam.tilt', function(data){
             console.log('Tilt', data);
             servos.tilt(data.value);
+        });
+
+        socket.on('cam.start', function(){
+            console.log('cam.start');
+            camera.start(function(err, stdout, stderr){
+                socket.emit('cam.status', {
+                    on: !!err
+                });
+            });
+        });
+
+        socket.on('cam.stop', function(){
+            console.log('cam.stop');
+            camera.stop(function(err, stdout, stderr){
+                socket.emit('cam.status', {
+                    on: !!err
+                });
+            });
         });
     });
 };
