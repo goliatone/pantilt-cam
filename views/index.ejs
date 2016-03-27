@@ -19,7 +19,11 @@
         <input id="step" value="10"/>
 
         <button id="refresh">Refresh</button>
+        <br/>
+        <button id="stop">Stop</button>
+        <button id="start">Start</button>
     </div>
+
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -50,9 +54,9 @@
             down(value);
         });
 
-        $('#refresh').on('click', function(){
-            refresh();
-        });
+        $('#refresh').on('click', refresh);
+        $('#stop').on('click', stop);
+        $('#start').on('click', start);
 
         function left(value){
             value = '+' + value;
@@ -76,6 +80,16 @@
         function refresh(){
             var $img = $("#video-feed img");
             $img.attr('src', $img.attr('src'));
+        }
+
+        function stop(){
+            console.log('stop');
+            socket.emit('cam.stop');
+        }
+
+        function start(){
+            console.log('start');
+            socket.emit('cam.start');
         }
 
         $('html').keydown(function(e){
