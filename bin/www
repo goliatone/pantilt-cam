@@ -29,7 +29,6 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-
 app.server = server;
 
 var io = require('../io');
@@ -44,9 +43,6 @@ io(app, {
         'xhr-polling',
         'jsonp-polling'
     ]
-    // origins: '*:*',
-    // allowRequest: function
-
 });
 
 /**
