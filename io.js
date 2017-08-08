@@ -24,6 +24,7 @@ module.exports = function(app, config){
         });
 
         socket.on('cam.start', function(){
+            console.log('cam.start');
             camera.start(function(err, stdout, stderr){
                 socket.emit('cam.status', {
                     on: !!err
@@ -32,6 +33,7 @@ module.exports = function(app, config){
         });
 
         socket.on('cam.stop', function(){
+            console.log('cam.stop');
             camera.stop(function(err, stdout, stderr){
                 socket.emit('cam.status', {
                     on: !!err
@@ -40,3 +42,4 @@ module.exports = function(app, config){
         });
     });
 };
+
